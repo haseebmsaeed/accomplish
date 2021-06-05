@@ -1,0 +1,7 @@
+{
+  "name": "accomplish-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

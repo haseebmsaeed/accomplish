@@ -1,10 +1,250 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nxtend/ionic-react"
+  },
+  "defaultProject": "accomplish-api",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    }
+  },
+  "projects": {
+    "accomplish-app": {
+      "root": "apps/accomplish-app",
+      "sourceRoot": "apps/accomplish-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/accomplish-app",
+            "index": "apps/accomplish-app/src/index.html",
+            "main": "apps/accomplish-app/src/main.tsx",
+            "polyfills": "apps/accomplish-app/src/polyfills.ts",
+            "tsConfig": "apps/accomplish-app/tsconfig.app.json",
+            "assets": [
+              "apps/accomplish-app/src/assets",
+              "apps/accomplish-app/src/manifest.json"
+            ],
+            "styles": ["apps/accomplish-app/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/accomplish-app/src/environments/environment.ts",
+                  "with": "apps/accomplish-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "accomplish-app:build",
+            "hmr": true,
+            "proxyConfig": "apps/accomplish-app/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "accomplish-app:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/accomplish-app/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/accomplish-app"],
+          "options": {
+            "jestConfig": "apps/accomplish-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "cap": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "--help"
+          }
+        },
+        "add": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "add",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "add ios"
+            },
+            "android": {
+              "cmd": "add android"
+            }
+          }
+        },
+        "copy": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "copy",
+            "packageInstall": false
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "copy ios"
+            },
+            "android": {
+              "cmd": "copy android"
+            }
+          }
+        },
+        "open": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "open",
+            "packageInstall": false
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "open ios"
+            },
+            "android": {
+              "cmd": "open android"
+            }
+          }
+        },
+        "sync": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "sync",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "sync ios"
+            },
+            "android": {
+              "cmd": "sync android"
+            }
+          }
+        },
+        "update": {
+          "executor": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "update",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "update ios"
+            },
+            "android": {
+              "cmd": "update android"
+            }
+          }
+        }
+      }
+    },
+    "accomplish-app-e2e": {
+      "root": "apps/accomplish-app-e2e",
+      "sourceRoot": "apps/accomplish-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/accomplish-app-e2e/cypress.json",
+            "tsConfig": "apps/accomplish-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "accomplish-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "accomplish-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/accomplish-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "accomplish-api": {
+      "root": "apps/accomplish-api",
+      "sourceRoot": "apps/accomplish-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/accomplish-api",
+            "main": "apps/accomplish-api/src/main.ts",
+            "tsConfig": "apps/accomplish-api/tsconfig.app.json",
+            "assets": ["apps/accomplish-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/accomplish-api/src/environments/environment.ts",
+                  "with": "apps/accomplish-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "accomplish-api:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/accomplish-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/accomplish-api"],
+          "options": {
+            "jestConfig": "apps/accomplish-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
   }
 }
